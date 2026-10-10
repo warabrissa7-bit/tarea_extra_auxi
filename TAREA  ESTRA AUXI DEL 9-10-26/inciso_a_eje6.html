@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Clases - Animales</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #333333;
+            --text-muted: #7f8c8d;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        /* Estilo general de las Tarjetas (Clases UML) */
+        .uml-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 280px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .uml-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .uml-card.main {
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .uml-card.child {
+            border-top: 5px solid var(--accent-color);
+        }
+
+        /* Secciones de la tarjeta */
+        .class-title {
+            background-color: #fafbfc;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .class-section {
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        .class-section.attributes {
+            border-bottom: 1px solid #e2e8f0;
+            background-color: #fff;
+        }
+
+        .class-section.methods {
+            background-color: #fafbfc;
+        }
+
+        .item {
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .item:last-child {
+            margin-bottom: 0;
+        }
+
+        .prefix {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .prefix.protected { color: #f39c12; }
+        .prefix.public { color: #2ecc71; }
+        .prefix.private { color: #e74c3c; }
+
+        .type {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Conectores y Flechas de Herencia */
+        .inheritance-line-vertical {
+            width: 2px;
+            height: 40px;
+            background-color: var(--text-muted);
+            position: relative;
+        }
+
+        .arrow-up {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 12px solid var(--text-muted);
+            position: absolute;
+            top: -12px;
+            left: -9px;
+        }
+
+        .inheritance-connector {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .horizontal-bridge {
+            width: 66%;
+            height: 2px;
+            background-color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .children-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 0px;
+            gap: 20px;
+        }
+
+        .child-branch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .child-line {
+            width: 2px;
+            height: 30px;
+            background-color: var(--text-muted);
+        }
+
+        /* Responsividad básica */
+        @media (max-width: 850px) {
+            .children-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 40px;
+            }
+            .horizontal-bridge, .child-line, .inheritance-line-vertical {
+                display: none;
+            }
+            .uml-card.main {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="diagram-container">
+        <!-- Clase Base: Animal -->
+        <div class="uml-card main">
+            <div class="class-title">Animal</div>
+            <div class="class-section attributes">
+                <div class="item"><span><span class="prefix protected">#</span>edad</span><span class="type">int</span></div>
+                <div class="item"><span><span class="prefix protected">#</span>peso</span><span class="type">double</span></div>
+                <div class="item"><span><span class="prefix protected">#</span>especie</span><span class="type">string</span></div>
+            </div>
+            <div class="class-section methods">
+                <div class="item"><span><span class="prefix public">+</span>respirar()</span></div>
+                <div class="item"><span><span class="prefix public">+</span>mover()</span></div>
+            </div>
+        </div>
+
+        <!-- Línea superior que sube a la clase padre con la flecha UML -->
+        <div class="inheritance-connector">
+            <div class="inheritance-line-vertical">
+                <div class="arrow-up"></div>
+            </div>
+            <div class="horizontal-bridge"></div>
+        </div>
+
+        <!-- Clases Hijas -->
+        <div class="children-container">
+            
+            <!-- Terrestre -->
+            <div class="child-branch">
+                <div class="child-line"></div>
+                <div class="uml-card child">
+                    <div class="class-title">Terrestre</div>
+                    <div class="class-section attributes">
+                        <div class="item"><span><span class="prefix private">-</span>numero_patas</span><span class="type">int</span></div>
+                        <div class="item"><span><span class="prefix private">-</span>tipo_pelaje</span><span class="type">string</span></div>
+                    </div>
+                    <div class="class-section methods">
+                        <div class="item"><span><span class="prefix public">+</span>caminar()</span></div>
+                        <div class="item"><span><span class="prefix public">+</span>correr()</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aereo -->
+            <div class="child-branch">
+                <div class="child-line"></div>
+                <div class="uml-card child">
+                    <div class="class-title">Aereo</div>
+                    <div class="class-section attributes">
+                        <div class="item"><span><span class="prefix private">-</span>envergadura</span><span class="type">double</span></div>
+                        <div class="item"><span><span class="prefix private">-</span>tipo_pico</span><span class="type">string</span></div>
+                    </div>
+                    <div class="class-section methods">
+                        <div class="item"><span><span class="prefix public">+</span>volar()</span></div>
+                        <div class="item"><span><span class="prefix public">+</span>construirNido()</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acuatico -->
+            <div class="child-branch">
+                <div class="child-line"></div>
+                <div class="uml-card child">
+                    <div class="class-title">Acuatico</div>
+                    <div class="class-section attributes">
+                        <div class="item"><span><span class="prefix private">-</span>numero_aletas</span><span class="type">int</span></div>
+                        <div class="item"><span><span class="prefix private">-</span>tiene_branquias</span><span class="type">bool</span></div>
+                    </div>
+                    <div class="class-section methods">
+                        <div class="item"><span><span class="prefix public">+</span>nadar()</span></div>
+                        <div class="item"><span><span class="prefix public">+</span>sumergirse()</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
